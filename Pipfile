@@ -1,0 +1,37 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+fastapi = "==0.63.0"
+pydantic = {extras = ["email"], version = "==1.7.3"}
+alembic = "==1.5.4"
+python-dotenv = "==0.15.0"
+psycopg2 = "==2.8.6"
+psycopg2-binary = "*"
+uvicorn = "*"
+dnspython = "==2.1.0"
+email-validator = "==1.1.2"
+idna = "==3.1"
+python-dateutil = "==2.8.1"
+python-editor = "==1.0.4"
+six = "==1.15.0"
+starlette = "==0.13.6"
+FastAPI-SQLAlchemy = "==0.2.1"
+Mako = "==1.1.4"
+MarkupSafe = "==1.1.1"
+SQLAlchemy = "==1.3.23"
+python-decouple = "*"
+pyjwt = "*"
+bcrypt = "*"
+geoalchemy2 = "*"
+geopy = "*"
+geojson = "*"
+shapely = "*"
+python-multipart = "*"
+
+[requires]
+python_version = "3.8"

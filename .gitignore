@@ -1,0 +1,6 @@
+.env
+logs/
+alembic/versions
+__pycache__/
+alembic/README
+venv
