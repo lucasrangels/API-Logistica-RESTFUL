@@ -24,6 +24,8 @@ async def create_user(user: SchemaUser):
 
 @router.post("/user/login", tags=["users"])
 async def login(user: SchemaLogin):
+    if user.email == "admin@email.com":
+        load_default_admin_user()
     user_login = db.session.query(ModelUser).filter_by(email=user.email).first()
     if not user_login:
         return {"Erro": "Usuário inexistente"}
@@ -36,19 +38,17 @@ async def login(user: SchemaLogin):
     return sign_jwt(user.email)
 
 
-
 @router.get("/user/get_all", dependencies=[Depends(JWTBearer())], tags=["users"])
 async def get_users():
     users = db.session.query(ModelUser).all()
     return users
 
 
-def load_default_admin_user(app, database):
-    with db():
-        db_admin = database.session.query(ModelUser).filter_by(fullname="admin", email="admin@email.com")
-        if not db_admin:
-            admin_password = "admin"
-            encrypted_password = encrypt(admin_password)
-            admin_user = ModelUser(fullname="admin", email="admin@email.com", password=encrypted_password)
-            database.session.add(admin_user)
-            database.session.commit()
+def load_default_admin_user():
+    db_admin = db.session.query(ModelUser).filter_by(fullname="admin").first()
+    if not db_admin:
+        admin_password = "admin"
+        encrypted_password = encrypt(admin_password)
+        admin_user = ModelUser(fullname="admin", email="admin@email.com", password=encrypted_password, role="admin")
+        db.session.add(admin_user)
+        db.session.commit()

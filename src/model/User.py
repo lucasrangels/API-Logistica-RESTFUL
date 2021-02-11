@@ -28,7 +28,7 @@ class UserSchema(Base):
 
 class UserLoginSchema(Base):
     __tablename__ = "users_login"
-    session_id = Column(Integer, primary_key=True, index=True)
+    session_id = Column(UUID(as_uuid=True), primary_key=True, default=lambda: uuid4().hex, unique=True)
     email = Column(String)
     password = Column(Binary)
     user_role = Column(String, default='user')
