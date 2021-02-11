@@ -8,7 +8,7 @@ from . import Base
 
 class SellerSchema(Base):
     __tablename__ = "sellers"
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4(), unique=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=lambda: uuid4().hex, unique=True)
     name = Column(String)
     email = Column(String, unique=True)
     creation_date = Column(DateTime, default=datetime.datetime.now())

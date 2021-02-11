@@ -10,7 +10,7 @@ from . import Base
 
 class CustomersSchema(Base):
     __tablename__ = "costumers"
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4(), unique=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=lambda: uuid4().hex, unique=True)
     name = Column(String)
     street_address = Column(String)
     address_number = Column(String)
