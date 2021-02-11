@@ -10,14 +10,14 @@ from fastapi_sqlalchemy import db
 router = APIRouter()
 
 
-@router.post("/seller/create", response_model=SchemaSeller, dependencies=[Depends(JWTBearer())], tags=["sellers"])
+@router.post("/seller/create", dependencies=[Depends(JWTBearer())], tags=["sellers"])
 async def create_seller(seller: SchemaSeller):
     if not check_admin_permission():
         return {"Erro": "Usuário não tem permissão para cadastrar vendedores"}
     db_seller = ModelSeller(name=seller.name, email=seller.email)
     db.session.add(db_seller)
     db.session.commit()
-    return db_seller
+    return {"Erro": "Vendedor criado com sucesso"}
 
 
 @router.get("/seller/get_all", dependencies=[Depends(JWTBearer())], tags=["sellers"])
@@ -28,7 +28,7 @@ async def get_sellers():
     return sellers
 
 
-@router.delete("/seller/delete", response_model=SchemaSeller, dependencies=[Depends(JWTBearer())], tags=["sellers"])
+@router.delete("/seller/delete", dependencies=[Depends(JWTBearer())], tags=["sellers"])
 async def delete_seller(seller: SchemaSeller):
     if not check_admin_permission():
         return {"Erro": "Usuário não tem permissão para deletar vendedores"}
