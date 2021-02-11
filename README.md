@@ -51,6 +51,7 @@ $ docker-compose build
 ```
 $ docker-compose up
 ```
+> Atenção: A porta padrão é a 8000.
 
 
 ## Modelo de Dados
@@ -192,3 +193,20 @@ Para definir se o cliente está em uma rota de entrega ou não é utilizado o cr
   "route_name": "Rota 1" 
 }
 ```
+
+## Testes
+
+- O FrameWork FastAPI possui a ferramenta de documentação <a href="https://swagger.io/tools/swagger-ui/" target="_blank">Swagger UI</a>, que permite não só o mapeamento de todas as Endpoints configuradas, como também o teste e visualização dos schemas para cada um deles.
+
+> Utilize o endereço http://localhost:8000/docs#/ para ter acesso à testes através da UI do FrameWork.
+
+- Um usuário ADMIN está pré-cadastrado para facilitar operações de teste.
+```
+{
+  "email": "admin@email.com" 
+  "password": "admin"
+}
+```
+
+
+
