@@ -27,7 +27,7 @@ class RouteSchema(BaseModel):
 
 
 class SellerSchema(BaseModel):
-    name: str
+    name: str = None
     email: str = None
 
     class Config:

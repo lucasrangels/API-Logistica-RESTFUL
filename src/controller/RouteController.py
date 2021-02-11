@@ -57,7 +57,7 @@ async def edit_route(name: str = Form(...), bounds: str = Form(...)):
         return db_route
 
 
-@router.delete("/route/delete", response_model=SchemaRoute, dependencies=[Depends(JWTBearer())], tags=["routes"])
+@router.delete("/route/delete", dependencies=[Depends(JWTBearer())], tags=["routes"])
 async def delete_route(route_name):
     if not check_admin_permission():
         return {"Erro": "Usuário não tem permissão para deletar rotas"}
@@ -91,11 +91,11 @@ async def assign_seller(assign: AssignSchema):
 
 
 @router.put("/route/disassociate_seller", dependencies=[Depends(JWTBearer())], tags=["routes"])
-async def disassociate_seller(route: SchemaRoute):
+async def disassociate_seller(route_name: str):
     if not check_admin_permission():
         return {"Erro": "Usuário não tem permissão para desvincular vendedores"}
-    db_route = db.session.query(ModelRoute).filter_by(name=route.name, bounds=route.bounds).first()
-    if not route:
+    db_route = db.session.query(ModelRoute).filter_by(name=route_name).first()
+    if not db_route:
         return {"Erro": "Não foi possível desassociar o vendedor da rota pois a mesma não existe"}
     else:
         db_route.seller_id = None
